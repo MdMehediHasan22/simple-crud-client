@@ -30,6 +30,24 @@ const Students = ({studentsPromise}) => {
             }
         });
     }
+    const handleDelStudent = (id) => {
+        console.log("Delete student function called",id);
+        fetch(`http://localhost:3000/students/${id}`,{  
+            method: 'DELETE'
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.deletedCount > 0){
+                const remainingStudents = students.filter(student => student._id !== id);
+                setStudents(remainingStudents);
+                alert('Student deleted successfully');
+            }
+            console.log("Data after deleting student",data);
+            
+        });
+    }
+
+     
     return (
         <div>
             <div>
@@ -48,7 +66,9 @@ const Students = ({studentsPromise}) => {
                 <h2>Students List:</h2>
                 <ul>
                     {
-                        students.map((student) => <li key={student._id}>{student.name} : {student.email} : {student.id}</li>)
+                        students.map((student) => <li key={student._id}>{student.name} : {student.email} : {student.id}
+                        <button onClick={()=>handleDelStudent(student._id)}>Delete</button>
+                        </li>)
                     }
                 </ul>
             </div>

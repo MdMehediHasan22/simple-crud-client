@@ -29,10 +29,27 @@ const Users = ({usersPromise}) => {
             }
         });
     } 
+    const handleUserDelete = (id) => {
+        console.log("Delete user function called",id);
+        fetch(`http://localhost:3000/users/${id}`,{
+            method: 'DELETE'
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.deletedCount > 0){
+                const remainingUsers = users.filter(user => user._id !== id);
+                setUsers(remainingUsers);
+                alert('User deleted successfully');
+            }
+            console.log("Data after deleting user",data);
+            
+        });
+    }
 
   return (
     <div>   
         <div>
+            <h4>User:{users.length}</h4>
             <form onSubmit={handleAddUser}>
             <input type="text" name="name" />
             <br />
@@ -47,7 +64,9 @@ const Users = ({usersPromise}) => {
             <h2>Users List:</h2>
             <ul>
                 {
-                    users.map((user) => <li key={user._id}>{user.name} : {user.email}</li>)
+                    users.map((user) => <li key={user._id}>{user.name} : {user.email}
+                    <button onClick={()=>handleUserDelete(user._id)}>Delete</button>
+                    </li>)
                 }
             </ul>
         </div>
