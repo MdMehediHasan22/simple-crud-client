@@ -7,12 +7,23 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router";
-
+import MainLayout from './layouts/MainLayout.jsx';
+import UserDetail from './components/UserDetail.jsx';
 let router = createBrowserRouter([
   {
     path: "/",
-    Component: Root,
-    loader: loadRootData,
+    Component: MainLayout,
+    children: [
+      {
+        index: true,
+        Component: App,
+      },
+      {
+        path:'users/:id',
+        loader:({params})=>fetch(`http://localhost:3000/users/${params.id}`),
+        Component: UserDetail
+      }
+    ]
   },
 ]);
 
