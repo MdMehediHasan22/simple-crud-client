@@ -69,6 +69,7 @@ const Students = ({studentsPromise}) => {
                     {
                         students.map((student) => <li key={student._id}>{student.name} : {student.email} : {student.id}
                         <Link to={`/students/${student._id}`}>Details</Link>
+                        <Link to={`/update-student/${student._id}`}>Edit</Link>
                         <button onClick={()=>handleDelStudent(student._id)}>Delete</button>
                         </li>)
                     }

@@ -11,6 +11,7 @@ import MainLayout from './layouts/MainLayout.jsx';
 import UserDetail from './components/UserDetail.jsx';
 import StudentDetails from './components/StudentDetails.jsx';
 import UpdateUser from './components/UpdateUser.jsx';
+import UpdateStudent from './components/UpdateStudent.jsx';
 let router = createBrowserRouter([
   {
     path: "/",
@@ -34,7 +35,12 @@ let router = createBrowserRouter([
         path:'update/:id',
         loader:({params})=>fetch(`http://localhost:3000/users/${params.id}`),
         Component: UpdateUser
-      }
+      },
+      {
+        path:'update-student/:id',
+        loader:({params})=>fetch(`http://localhost:3000/students/${params.id}`),
+        Component: UpdateStudent
+      },
     ]
   },
 ]);
